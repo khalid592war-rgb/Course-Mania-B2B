@@ -1,0 +1,7 @@
+# Caddyfile: Automatic Free Let's Encrypt SSL/TLS reverse proxy for Course Mania
+# Replace "yourdomain.com" with your actual domain name pointing to your VPS IP
+
+api.coursemania.com {
+    reverse_proxy coursemania-app:3000
+    encode gzip zstd
+}

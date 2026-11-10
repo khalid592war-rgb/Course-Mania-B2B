@@ -1,0 +1,6 @@
+{
+  "name": "Course Mania - Multi-Bot Course Selling & Reseller Platform",
+  "description": "Production-grade Telegram multi-bot course selling platform with centralized catalog, 50/50 accounting ledger, credit-limit enforcement, and Super Admin/Reseller dashboards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

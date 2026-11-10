@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  coursemania-app:
+    build: .
+    container_name: coursemania-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - BOT_TOKEN_SECRET=cm-secret-token-key-2026-bengali-multi-tenant
+    volumes:
+      - ./data:/app/data
+
+  caddy-proxy:
+    image: caddy:2-alpine
+    container_name: coursemania-caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - coursemania-app
+
+volumes:
+  caddy_data:
+  caddy_config:

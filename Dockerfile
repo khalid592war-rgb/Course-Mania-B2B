@@ -1,0 +1,28 @@
+# Multi-stage production build for Course Mania
+FROM node:22-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# Production runtime
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+
+COPY package*.json ./
+RUN npm ci --omit=dev && npm install -g tsx
+
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/server.ts ./server.ts
+
+EXPOSE 3000
+
+CMD ["tsx", "server.ts"]
